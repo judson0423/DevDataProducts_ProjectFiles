@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Predicting Your Salary in 10 Years</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Predicting Your Salary in 10 Years">
+  <meta name="author" content="judson">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Predicting Your Salary in 10 Years</h1>
+    <h2></h2>
+    <p>judson<br/></p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>What this Application Does</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>This presentation describes an application which predicts your salary in 10 years time. It is a simple predictor, useful within reason, but cannot take into account complex factors such as whether you will attain an advanced degree within the decade or whether you will work in a field that does not now exist. </p>
+
+<p>To get a prediction, respond with appropriate value in the input box. For salary, input a value between $14,000 (14000) and $400,000 (400000). Outside of these values, the predictor will use $14,000 as a minimum and $400,000 as a maximum.</p>
+
+<p>The predictor is based on the following reasoning: Salaries tend to follow a more-or-less smooth progression, outside of a burst of unsustainable inflation or unaddressable skill shortage. Abnormal pressures on salaries in any industry or area are usually defused over time by the normal give-and-take of supply and demand in free market economies. Hence, most salaries are reasonably predictable in &#39;real&#39; terms.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>R Code ui.R</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>The code for the function is shown on this and the next slide.</p>
+
+<p>library(shiny)
+shinyUI(
+        pageWithSidebar(
+                headerPanel(&quot;Prediction of Salary in 10 Years&quot;),</p>
+
+<pre><code>            sidebarPanel(
+                    numericInput(&#39;salary&#39;, &#39;Current salary in $US&#39;, 35000, min=15000, max=400000, step=1000),
+                    submitButton(&#39;Submit&#39;)
+            ),
+            mainPanel(
+                    h3(&#39;Salary Prediction&#39;),
+                    h4(&#39;You entered current salary of &#39;),
+                    verbatimTextOutput(&quot;inputValue&quot;),
+                    h4(&#39; &#39;),
+                    h4(&#39;Your salary in 10 years will be &#39;),
+                    verbatimTextOutput(&quot;prediction&quot;)
+            )))
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>R Code server.R</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>salaryIn10Years &lt;- function(salary) 1.8*salary</p>
+
+<p>library(shiny)
+shinyServer(
+        function(input, output) {
+                output$inputValue &lt;- renderPrint({input$salary})
+                output$prediction &lt;- renderPrint({salaryIn10Years(input$salary)})
+        }
+)</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>The Results are in &#39;Real&#39; Economic Terms</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>The predicted value is in &#39;real&#39; economic terms; i.e, &#39;core&#39; inflation is factored out. The predicted values, outside of sustained economic abnormalities, reflect an expected increase in the basic purchasing power of individuals as they remain in and mature in the labor economy.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='What this Application Does'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='R Code ui.R'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='R Code server.R'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='The Results are in &#39;Real&#39; Economic Terms'>
+         4
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
